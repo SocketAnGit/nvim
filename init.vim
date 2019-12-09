@@ -106,191 +106,7 @@ let g:terminal_color_13  = '#FF92D0'
 let g:terminal_color_14  = '#9AEDFE'
 
 
-" ===
-" === Basic Mappings
-" ===
-" Set <LEADER> as <SPACE>, ; as :
-let mapleader=" "
-noremap ; :
 
-" Save & quit
-noremap Q :q<CR>
-noremap S :w<CR>
-
-" Open the vimrc file anytime
-noremap <LEADER>rc :e ~/.config/nvim/init.vim<CR>
-
-" Open Startify
-noremap <LEADER>st :Startify<CR>
-
-" Undo operations
-noremap l u
-
-" Insert Key
-noremap k i
-noremap K I
-
-" make Y to copy till the end of the line
-nnoremap Y y$
-
-" Copy to system clipboard
-vnoremap Y "+y
-
-" Indentation
-nnoremap < <<
-nnoremap > >>
-
-" Search
-noremap <LEADER><CR> :nohlsearch<CR>
-
-" Adjacent duplicate words
-noremap <LEADER>dw /\(\<\w\+\>\)\_s*\1
-
-" Space to Tab
-noremap <LEADER>tt :%s/    /\t/g
-
-" Folding
-noremap <silent> <LEADER>o za
-
-" Open up lazygit
-noremap \g :term lazygit<CR>
-noremap <c-g> :term lazygit<CR>
-
-
-" ===
-" === Cursor Movement
-" ===
-" New cursor movement (the default arrow keys are used for resizing windows)
-"     ^
-"     u
-" < n   i >
-"     e
-"     v
-noremap <silent> u k
-noremap <silent> n h
-noremap <silent> e j
-noremap <silent> i l
-
-" U/E keys for 5 times u/e (faster navigation)
-noremap <silent> U 5k
-noremap <silent> E 5j
-
-" N key: go to the start of the line
-noremap <silent> N 0
-" I key: go to the end of the line
-noremap <silent> I $
-
-" Faster in-line navigation
-noremap W 5w
-noremap B 5b
-
-" set h (same as n, cursor left) to 'end of word'
-noremap h e
-
-" Ctrl + U or E will move up/down the view port without moving the cursor
-noremap <C-U> 5<C-y>
-noremap <C-E> 5<C-e>
-
-" ===
-" === Insert Mode Cursor Movement
-" ===
-inoremap <C-a> <ESC>A
-
-
-" ===
-" === Window management
-" ===
-" Use <space> + new arrow keys for moving the cursor around windows
-noremap <LEADER>w <C-w>w
-noremap <LEADER>u <C-w>k
-noremap <LEADER>e <C-w>j
-noremap <LEADER>n <C-w>h
-noremap <LEADER>i <C-w>l
-
-" Disable the default s key
-noremap s <nop>
-
-" split the screens to up (horizontal), down (horizontal), left (vertical), right (vertical)
-noremap su :set nosplitbelow<CR>:split<CR>:set splitbelow<CR>
-noremap se :set splitbelow<CR>:split<CR>
-noremap sn :set nosplitright<CR>:vsplit<CR>:set splitright<CR>
-noremap si :set splitright<CR>:vsplit<CR>
-
-" Resize splits with arrow keys
-noremap <up> :res +5<CR>
-noremap <down> :res -5<CR>
-noremap <left> :vertical resize-5<CR>
-noremap <right> :vertical resize+5<CR>
-
-" Place the two screens up and down
-noremap sh <C-w>t<C-w>K
-" Place the two screens side by side
-noremap sv <C-w>t<C-w>H
-
-" Rotate screens
-noremap srh <C-w>b<C-w>K
-noremap srv <C-w>b<C-w>H
-
-" Press <SPACE> + q to close the window below the current window
-noremap <LEADER>q <C-w>j:q<CR>
-
-
-" ===
-" === Tab management
-" ===
-" Create a new tab with tu
-noremap tu :tabe<CR>
-" Move around tabs with tn and ti
-noremap tn :-tabnext<CR>
-noremap ti :+tabnext<CR>
-" Move the tabs with tmn and tmi
-noremap tmn :-tabmove<CR>
-noremap tmi :+tabmove<CR>
-
-
-" ===
-" === Markdown Settings
-" ===
-" Snippets
-source ~/.config/nvim/md-snippets.vim
-" auto spell
-autocmd BufRead,BufNewFile *.md setlocal spell
-
-
-" ===
-" === Other useful stuff
-" ===
-" \p to show the current buffer file path
-nnoremap \p 1<C-G>
-
-" Move the next character to the end of the line with ctrl+9
-inoremap <C-u> <ESC>lx$p
-
-" Opening a terminal window
-noremap <LEADER>/ :set splitbelow<CR>:sp<CR>:term<CR>
-
-" Press space twice to jump to the next '<++>' and edit it
-noremap <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>c4l
-
-" Spelling Check with <space>sc
-noremap <LEADER>sc :set spell!<CR>
-
-" Press ` to change case (instead of ~)
-noremap ` ~
-
-noremap <C-c> zz
-
-" Auto change directory to current dir
-autocmd BufEnter * silent! lcd %:p:h
-
-" Call figlet
-noremap tx :r !figlet
-
-noremap <LEADER>- :lN<CR>
-noremap <LEADER>= :lne<CR>
-
-" Compile function
-noremap r :call CompileRunGcc()<CR>
 func! CompileRunGcc()
 	exec "w"
 	if &filetype == 'c'
@@ -312,7 +128,7 @@ func! CompileRunGcc()
 		:sp
 		:term python3 %
 	elseif &filetype == 'html'
-		silent! exec "!chromium % &"
+		silent! exec "!firefox % &"
 	elseif &filetype == 'markdown'
 		exec "MarkdownPreview"
 	elseif &filetype == 'tex'
@@ -508,6 +324,52 @@ color deus
 
 hi NonText ctermfg=gray guifg=grey10
 "hi SpecialKey ctermfg=blue guifg=grey70
+"
+" ===
+" === Markdown Settings
+" ===
+" Snippets
+source ~/.config/nvim/md-snippets.vim
+" auto spell
+autocmd BufRead,BufNewFile *.md setlocal spell
+
+" Compile function
+noremap F5 :call CompileRunGcc()<CR>
+func! CompileRunGcc()
+	exec "w"
+	if &filetype == 'c'
+		exec "!g++ % -o %<"
+		exec "!time ./%<"
+	elseif &filetype == 'cpp'
+		set splitbelow
+		exec "!g++ -std=c++11 % -Wall -o %<"
+		:sp
+		:res -15
+		:term ./%<
+	elseif &filetype == 'java'
+		exec "!javac %"
+		exec "!time java %<"
+	elseif &filetype == 'sh'
+		:!time bash %
+	elseif &filetype == 'python'
+		set splitbelow
+		:sp
+		:term python3 %
+	elseif &filetype == 'html'
+		silent! exec "!chromium % &"
+	elseif &filetype == 'markdown'
+		exec "MarkdownPreview"
+	elseif &filetype == 'tex'
+		silent! exec "VimtexStop"
+		silent! exec "VimtexCompile"
+	elseif &filetype == 'go'
+		set splitbelow
+		:sp
+		:term go run %
+	endif
+endfunc
+
+
 
 " ===================== Start of Plugin Settings =====================
 
@@ -517,7 +379,6 @@ let g:airline_powerline_fonts = 0
 " ===
 " === NERDTree
 " ===
-noremap tt :NERDTreeToggle<CR>
 let NERDTreeMapOpenExpl = ""
 let NERDTreeMapUpdir = "N"
 let NERDTreeMapUpdirKeepOpen = "n"
@@ -540,10 +401,6 @@ let g:gitgutter_map_keys = 0
 let g:gitgutter_override_sign_column_highlight = 0
 let g:gitgutter_preview_win_floating = 1
 autocmd BufWritePost * GitGutter
-nnoremap <LEADER>gf :GitGutterFold<CR>
-nnoremap H :GitGutterPreviewHunk<CR>
-nnoremap <LEADER>g- :GitGutterPrevHunk<CR>
-nnoremap <LEADER>g= :GitGutterNextHunk<CR>
 
 
 " ==
@@ -651,12 +508,6 @@ let g:table_mode_cell_text_object_i_map = 'k<Bar>'
 " ===
 " === FZF
 " ===
-noremap <C-p> :FZF<CR>
-noremap <C-f> :Ag<CR>
-noremap <C-h> :MRU<CR>
-noremap <C-t> :BTags<CR>
-noremap <C-l> :BLine<CR>
-noremap q; :History:<CR>
 command! -bang -nargs=? -complete=dir Files
   \ call fzf#vim#files(<q-args>, fzf#vim#with_preview('right:30%', 'ctrl-p'), <bang>0)
 
@@ -692,7 +543,6 @@ command! -bang BTags
 " ===
 " === fzf-preview.vim
 " ===
-noremap <C-w> :BuffersPreview<CR>
 let g:fzf_preview_default_key_bindings = 'ctrl-e:down,ctrl-u:up'
 let g:fzf_preview_layout = 'belowright split new'
 let g:fzf_preview_rate = 0.4
@@ -738,7 +588,6 @@ let g:SignatureMap = {
 " ===
 " === Undotree
 " ===
-noremap L :UndotreeToggle<CR>
 let g:undotree_DiffAutoOpen = 1
 let g:undotree_SetFocusWhenToggle = 1
 let g:undotree_ShortIndicators = 1
@@ -819,7 +668,7 @@ let g:vista_fzf_preview = ['right:50%']
 " ===
 " === Ranger.vim
 " ===
-nnoremap R :Ranger<CR>
+nnoremap M+R :Ranger<CR>
 let g:ranger_map_keys = 0
 
 
@@ -846,90 +695,7 @@ silent! au BufEnter,BufRead,BufNewFile * silent! unmap <c-r>
 " ===
 "let g:vimtex_view_method = ''
 let g:vimtex_view_general_viewer = 'llpp'
-let g:vimtex_mappings_enabled = 0
-let g:vimtex_text_obj_enabled = 0
-let g:vimtex_motion_enabled = 0
-let maplocalleader=' '
-
-
-" ===
-" === GV
-" ===
-nnoremap gv :GV<CR>
-
-
-" ===
-" === vim-calendar
-" ===
-"noremap \c :Calendar -position=here<CR>
-noremap \\ :Calendar -view=clock -position=here<CR>
-let g:calendar_google_calendar = 1
-let g:calendar_google_task = 1
-augroup calendar-mappings
-	autocmd!
-	" diamond cursor
-	autocmd FileType calendar nmap <buffer> u <Plug>(calendar_up)
-	autocmd FileType calendar nmap <buffer> n <Plug>(calendar_left)
-	autocmd FileType calendar nmap <buffer> e <Plug>(calendar_down)
-	autocmd FileType calendar nmap <buffer> i <Plug>(calendar_right)
-	autocmd FileType calendar nmap <buffer> <c-u> <Plug>(calendar_move_up)
-	autocmd FileType calendar nmap <buffer> <c-n> <Plug>(calendar_move_left)
-	autocmd FileType calendar nmap <buffer> <c-e> <Plug>(calendar_move_down)
-	autocmd FileType calendar nmap <buffer> <c-i> <Plug>(calendar_move_right)
-	autocmd FileType calendar nmap <buffer> k <Plug>(calendar_start_insert)
-	autocmd FileType calendar nmap <buffer> K <Plug>(calendar_start_insert_head)
-	" unmap <C-n>, <C-p> for other plugins
-	autocmd FileType calendar nunmap <buffer> <C-n>
-	autocmd FileType calendar nunmap <buffer> <C-p>
-augroup END
-
-
-" ===
-" === Anzu
-" ===
-set statusline=%{anzu#search_status()}
-nnoremap = n
-nnoremap - N
-
-
-" ===
-" === vim-go
-" ===
-let g:go_template_autocreate = 0
-let g:go_textobj_enabled = 0
-let g:go_auto_type_info = 1
-"let g:go_def_mapping_enabled = 1
-let g:go_highlight_array_whitespace_error    = 1
-let g:go_highlight_build_constraints         = 1
-let g:go_highlight_chan_whitespace_error     = 1
-let g:go_highlight_extra_types               = 1
-let g:go_highlight_fields                    = 1
-let g:go_highlight_format_strings            = 1
-let g:go_highlight_function_calls            = 1
-let g:go_highlight_function_parameters       = 1
-let g:go_highlight_functions                 = 1
-let g:go_highlight_generate_tags             = 1
-let g:go_highlight_methods                   = 1
-let g:go_highlight_operators                 = 1
-let g:go_highlight_space_tab_error           = 1
-let g:go_highlight_string_spellcheck         = 1
-let g:go_highlight_structs                   = 1
-let g:go_highlight_trailing_whitespace_error = 1
-let g:go_highlight_types                     = 1
-let g:go_highlight_variable_assignments      = 0
-let g:go_highlight_variable_declarations     = 0
-
-
-" ===
-" === AutoFormat
-" ===
-nnoremap \f :Autoformat<CR>
-
-" ===
-" === OmniSharp
-" ===
-let g:OmniSharp_typeLookupInPreview = 1
-let g:omnicomplete_fetch_full_documentation = 1
+let g:vimtex_complete_fetch_full_documentation = 1
 
 let g:OmniSharp_server_use_mono = 1
 let g:OmniSharp_server_stdio = 1
@@ -1104,7 +870,6 @@ let g:vimsyn_folding = 'af'
 let g:xml_syntax_folding = 1
 let g:javaScript_fold = 1
 let g:sh_fold_enabled= 7
-let g:ruby_fold = 1
 let g:perl_fold = 1
 let g:perl_fold_blocks = 1
 let g:r_syntax_folding = 1
